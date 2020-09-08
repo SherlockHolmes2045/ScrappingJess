@@ -167,9 +167,13 @@ function getProjectsAnr(page = null){
 router.get('/', function(req, res, next) {
 
     Promise.all([getProjects(),getProjectsInria()]).then(result => {
-        res.json({
-            appels: result
+        let appels = [];
+        result.forEach( values => {
+            values.appels.forEach(data =>{
+                appels.push(data)
+            })
         });
+        res.render('appels.ejs',{appels: appels});
     })
 
 });
