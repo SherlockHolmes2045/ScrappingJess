@@ -264,4 +264,14 @@ router.get('/:url',function (req,res,next){
     res.render('appel.ejs');
 })
 
+router.post('/search', function(req,res,next){
+
+    let searchterm = req.body.searchValue;
+    let data = JSON.parse(req.body.data);
+    let filterValues = data.filter(appel => {
+        return appel.type.includes(searchterm) || appel.title.includes(searchterm);
+    })
+    res.render('appels.ejs',{appels: filterValues});
+})
+
 module.exports = router;
